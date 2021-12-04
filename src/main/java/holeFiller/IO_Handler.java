@@ -20,6 +20,14 @@ public class IO_Handler {
         return connectivityType;
     }
 
+    // make sure epsilon != 0
+    public static float validateEpsilon(float epsilon) {
+        if (epsilon == 0f) {
+            throw new IllegalArgumentException("Epsilon can't be equal to ZERO!");
+        }
+        return epsilon;
+    }
+
     // convert HoledImage to jpg file and save it as outputName in the main folder
     protected static void createImgFile(HoledImage holedImage, String outputName) throws IOException {
         BufferedImage filledImage = new BufferedImage(holedImage.width, holedImage.height, BufferedImage.TYPE_INT_RGB);

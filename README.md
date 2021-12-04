@@ -15,16 +15,16 @@ The flow of the code is as follows:
 6. Convert (write) the new map result into jpg file and save it in the main folder.
 
 
-###image and mask inputs *example*: <br/>
+### image and mask inputs *example*: <br/>
 ![Image Example][image-example]
 ![Image Mask Example][image-mask-example] <br/>
-###output *example*: <br/>
+### output *example*: <br/>
 ![Image Filled Example][image-filled-example]
 
 
 ## Assumptions
 * Image and Image_Mask as the same height and width.
-* RGB to Grayscale according to [Average Method](https://www.dynamsoft.com/blog/insights/image-processing/image-processing-101-color-space-conversion/).
+* RGB to Grayscale according to the [Average Method](https://www.dynamsoft.com/blog/insights/image-processing/image-processing-101-color-space-conversion/).
 * The pixels from the mask will be considered as a hole pixel - if the pixel has grayscale normalized color which is less than 0.5.
 * Get hole boundary according to [4-connected and 8-connected](http://en.wikipedia.org/wiki/Pixel_connectivity).
 * The formula for calculating hole pixel color as follows: <br/>
@@ -46,7 +46,14 @@ PDF answers file for the questions is in the main folder.
    ```
    required: <image> <image_mask>  optional: <z> <E> <connectivity_type>
     ```
-5. RUN.
+5. Examples for command line arguments configuration: <br/>
+    ```
+    tests/test1.png tests/test1_mask.png 3 0.001 8
+    ```
+    ```
+    tests/test2.png tests/test2_mask.png
+    ```
+6. RUN.
 
 
 ## Dependencies

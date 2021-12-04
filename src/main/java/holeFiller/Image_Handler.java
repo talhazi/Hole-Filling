@@ -38,7 +38,7 @@ public class Image_Handler {
         return pixelsMap;
     }
 
-    // convert rgb to grayscale according to the average method, and return the normalized grayscale value [0,1]
+    // convert rgb to grayscale according to the average method, and return the normalized grayscale value (in range [0,1])
     private static float getNormalGrayscale(Color c) {
         float average = (float) (c.getRed() + c.getGreen() + c.getBlue()) / 3;
         return average / 255;

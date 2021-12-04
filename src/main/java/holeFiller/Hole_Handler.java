@@ -15,7 +15,7 @@ public class Hole_Handler {
         this.imagePath = imagePath;
         this.imageMaskPath = imageMaskPath;
         this.z = z;
-        this.epsilon = epsilon;
+        this.epsilon = IO_Handler.validateEpsilon(epsilon);
         this.connectivityType = IO_Handler.validateConnectivityType(connectivityType);
     }
 
@@ -41,4 +41,5 @@ public class Hole_Handler {
         IO_Handler.createImgFile(holedImage, outputName);
         System.out.println("Program finished, the image has been filled successfully!\n");
     }
+
 }

@@ -3,7 +3,7 @@ package holeFiller;
 import java.util.ArrayList;
 
 // HoledImage holds the holed image pixels values:
-// the original image values normalized to be in range [0,1], and the mask values to -1float.
+// the original image values normalized to be in range [0,1], and the mask values to -1float
 // in addition its hold the hole pixels and the hall boundary pixels
 public class HoledImage {
     protected static Pixel[][] pixelsMap;
