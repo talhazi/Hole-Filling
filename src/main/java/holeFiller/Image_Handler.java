@@ -12,28 +12,23 @@ public class Image_Handler {
     // initializes 2D map, which represents the image with the hole;
     // the original image values normalized to be in range [0,1] and the mask values to -1float.
     protected static Pixel[][] getHoledImageMap(String imagePath, String imageMaskPath) {
-        Pixel[][] pixelsMap = null;
-        float value;
-        try {
-            BufferedImage image = ImageIO.read(new File(imagePath));
-            BufferedImage imageMask = ImageIO.read(new File(imageMaskPath));
-            int width = image.getWidth();
-            int height = image.getHeight();
-            pixelsMap = new Pixel[width][height];
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    Color pixelColor = new Color(imageMask.getRGB(x, y));
-                    value = getNormalGrayscale(pixelColor);
-                    if (value < 0.5)
-                        value = Hole_Handler.HOLE;
-                    else
-                        value = getNormalGrayscale(new Color(image.getRGB(x, y)));
-                    pixelsMap[x][y] = new Pixel(x, y, value);
-                }
+        BufferedImage image = IO_Handler.getBufferedImage(imagePath);
+        BufferedImage imageMask = IO_Handler.getBufferedImage(imageMaskPath);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        // assuming image and imageMask has the same width and height
+        Pixel[][] pixelsMap = new Pixel[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                // first check if its hole, if not update the value to normalized image value
+                Color pixelColor = new Color(imageMask.getRGB(x, y));
+                float value = getNormalGrayscale(pixelColor);
+                if (value < 0.5)
+                    value = Hole_Handler.HOLE;
+                else
+                    value = getNormalGrayscale(new Color(image.getRGB(x, y)));
+                pixelsMap[x][y] = new Pixel(x, y, value);
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
         }
         return pixelsMap;
     }
@@ -61,9 +56,9 @@ public class Image_Handler {
     protected static ArrayList<Pixel> getBoundaryPixels(Pixel[][] pixelsMap, ArrayList<Pixel> holes, int connectivityType) {
         ArrayList<Pixel> boundary = new ArrayList<>();
         for (Pixel u : holes) {
-            Connectivity_Handler.handleC4(pixelsMap, boundary, u);
+            Connectivity_Handler.handle4Connect(pixelsMap, boundary, u);
             if (connectivityType == 8){
-                Connectivity_Handler.handleC8(pixelsMap, boundary, u);
+                Connectivity_Handler.handle8Connect(pixelsMap, boundary, u);
             }
         }
         return boundary;

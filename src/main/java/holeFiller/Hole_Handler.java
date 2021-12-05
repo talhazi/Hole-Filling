@@ -15,17 +15,17 @@ public class Hole_Handler {
         this.imagePath = imagePath;
         this.imageMaskPath = imageMaskPath;
         this.z = z;
-        this.epsilon = IO_Handler.validateEpsilon(epsilon);
-        this.connectivityType = IO_Handler.validateConnectivityType(connectivityType);
+        this.epsilon = IO_Handler.validateEpsilon(epsilon); // shouldn't be 0
+        this.connectivityType = IO_Handler.validateConnectivityType(connectivityType); // should be 4 or 8
     }
 
-    // update the hole values of holedImage to new one according to the algo formula
-    private void fillHole(HoledImage holedImage, int z, float e) {
+    // update the hole values of holedImage to new values according to the algo formula
+    private void fillHole(HoledImage holedImage) {
         for (Pixel u : holedImage.hole) {
-            float newValue = Algo_Formula.calcColor(u, holedImage.boundary, z, e);
+            float newColorValue = Algo_Formula.calcColor(u, holedImage.boundary, z, epsilon);
             int x = u.getX();
             int y = u.getY();
-            HoledImage.pixelsMap[x][y].setValue(newValue);
+            HoledImage.pixelsMap[x][y].setValue(newColorValue);
         }
     }
 
@@ -36,7 +36,7 @@ public class Hole_Handler {
     // run the all process: create HoledImage > fill his hole > save it as output.jpg
     public void run() throws IOException {
         HoledImage holedImage = new HoledImage(imagePath, imageMaskPath, connectivityType);
-        fillHole(holedImage, z, epsilon);
+        fillHole(holedImage);
         String outputName = "output.jpg";
         IO_Handler.createImgFile(holedImage, outputName);
         System.out.println("Program finished, the image has been filled successfully!\n");

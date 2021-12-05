@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class IO_Handler {
 
     // make sure connectivityType is 4 or 8
-    public static int validateConnectivityType(int connectivityType) {
+    protected static int validateConnectivityType(int connectivityType) {
         ArrayList<Integer> legalConnectivityType = new ArrayList<>();
         legalConnectivityType.add(4);
         legalConnectivityType.add(8);
@@ -21,11 +21,22 @@ public class IO_Handler {
     }
 
     // make sure epsilon != 0
-    public static float validateEpsilon(float epsilon) {
+    protected static float validateEpsilon(float epsilon) {
         if (epsilon == 0f) {
             throw new IllegalArgumentException("Epsilon can't be equal to ZERO!");
         }
         return epsilon;
+    }
+
+    protected static BufferedImage getBufferedImage(String imagePath) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(imagePath));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+        return image;
     }
 
     // convert HoledImage to jpg file and save it as outputName in the main folder
@@ -42,5 +53,6 @@ public class IO_Handler {
         ImageIO.write(filledImage, "jpg", output);
         System.out.println("File has been saved to main folder as: " + outputName);
     }
+
 
 }
