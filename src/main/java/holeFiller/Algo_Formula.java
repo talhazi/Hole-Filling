@@ -31,6 +31,7 @@ public class Algo_Formula {
         return boundaryWeightsColorsSum / boundaryWeightsSum;
     }
 
+    // this weight function can be changed if necessary
     private static float getWeight(Pixel u, Pixel v, int z, float epsilon) {
         return (float) (1 / (Math.pow(getEuclideanDistance(u, v), z) + epsilon));
     }

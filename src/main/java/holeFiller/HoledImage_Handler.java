@@ -1,13 +1,10 @@
 package holeFiller;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class Image_Handler {
+public class HoledImage_Handler {
 
     // initializes 2D map, which represents the image with the hole;
     // the original image values normalized to be in range [0,1] and the mask values to -1float.
@@ -20,7 +17,7 @@ public class Image_Handler {
         Pixel[][] pixelsMap = new Pixel[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                // first check if its hole, if not update the value to normalized image value
+                // first check if it's hole, if not update the value to normalized image value
                 Color pixelColor = new Color(imageMask.getRGB(x, y));
                 float value = getNormalGrayscale(pixelColor);
                 if (value < 0.5)

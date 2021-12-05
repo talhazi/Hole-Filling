@@ -23,9 +23,10 @@ The flow of the code is as follows:
 
 
 ## Assumptions
-* Image and Image_Mask as the same height and width.
+* image and image_mask as the same height and width.
 * RGB to Grayscale according to the [Average Method](https://www.dynamsoft.com/blog/insights/image-processing/image-processing-101-color-space-conversion/).
 * The pixels from the mask will be considered as a hole pixel - if the pixel has grayscale normalized color which is less than 0.5.
+* Every image has only a single hole, which is not close to the borders of the image.
 * Get hole boundary according to [4-connected and 8-connected](http://en.wikipedia.org/wiki/Pixel_connectivity).
 * The formula for calculating hole pixel color as follows: <br/>
   ![fill-hole-formula]

@@ -13,9 +13,9 @@ public class HoledImage {
     int height;
 
     protected HoledImage(String imagePath, String maskPath, int connectivityType) {
-        pixelsMap = Image_Handler.getHoledImageMap(imagePath, maskPath);
-        hole = Image_Handler.getHolePixels(pixelsMap);
-        boundary = Image_Handler.getBoundaryPixels(pixelsMap, hole, connectivityType);
+        pixelsMap = HoledImage_Handler.getHoledImageMap(imagePath, maskPath);
+        hole = HoledImage_Handler.getHolePixels(pixelsMap);
+        boundary = HoledImage_Handler.getBoundaryPixels(pixelsMap, hole, connectivityType);
         width = pixelsMap.length;
         height = pixelsMap[0].length;
     }
