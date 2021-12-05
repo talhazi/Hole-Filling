@@ -1,30 +1,32 @@
-package holeFiller;
+package holeFiller.passiveObjects;
 
-// Pixel holds pixel coordinate and color value in range [0,1]
+/**
+ * Pixel holds pixel coordinate and color-value in range [0,1]
+ */
 public class Pixel {
     private final int x;
     private final int y;
     private float value;
 
-    protected Pixel(int x, int y, float value) {
+    public Pixel(int x, int y, float value) {
         this.x = x;
         this.y = y;
         this.value = value;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
-    float getValue() {
+    public float getValue() {
         return value;
     }
 
-    void setValue(float value) {
+    public void setValue(float value) {
         this.value = value;
     }
 }

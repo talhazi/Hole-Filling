@@ -4,7 +4,7 @@ This library fills holes in images.
 
 The flow of the code is as follows:
 
-1. cmdUtil accepts main-image, mask-image, z, E and connectivity_type as command line arguments.
+1. cmdUtil accepts main-image, mask-image, Z, epsilon and connectivity_type as command line arguments.
    Then it used the holeFiller library to fill hole in the image, by:
 2. Convert the main image to grayscale normalized and overlay the mask into 2D values map. So the mask pixels values will be -1, and the others will be in range [0,1], as follows: <br/>
    ![holed-image-map]
@@ -45,7 +45,7 @@ PDF answers file for the questions is in the main folder.
 3. Open the folder [as IntelliJ IDEA project](https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html).
 4. (Usage) Add 2 or 5 command line arguments in the configuration as follows: <br/>
    ```
-   required: <image> <image_mask>  optional: <z> <E> <connectivity_type>
+   required: <image> <image_mask>  optional: <Z> <epsilon> <connectivity_type>
     ```
 5. Examples for command line arguments configuration: <br/>
     ```

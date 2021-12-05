@@ -1,14 +1,24 @@
 package holeFiller;
 
+import holeFiller.passiveObjects.Pixel;
+
 import java.util.ArrayList;
 
-public class Algo_Formula {
+public class AlgoFormula {
 
     // K is our constant of accuracy (Question 2)
     private static final float K = 400;
 
-    // calculate color according to the formula definition
-    protected static float calcColor(Pixel u, ArrayList<Pixel> B, int z, float epsilon) {
+    /**
+     * calculate color according to the formula definition
+     *
+     * @param  u   which represents the hole pixel which we want to calculate his new color
+     * @param  B   list of the boundary pixels
+     * @param  z   for the formula
+     * @param  epsilon   to avoid division by zero
+     * @return  newColor   the new hole color
+     */
+    static float calcColor(Pixel u, ArrayList<Pixel> B, int z, float epsilon) {
         float boundaryWeightsColorsSum = 0;
         float boundaryWeightsSum = 0;
         for (Pixel v : B) {
@@ -19,8 +29,8 @@ public class Algo_Formula {
         return boundaryWeightsColorsSum / boundaryWeightsSum;
     }
 
-    // same formula, but ignore all the v∈B in which ‖u-v‖ ≥ k (Question 2)
-    protected static float calcColorConstComplex(Pixel u, ArrayList<Pixel> B, int z, float epsilon) {
+    // same formula, but ignore all the v∈B in which ‖u-v‖ ≥ k (Question 2) - Const Complexity
+    static float calcColorConstComplex(Pixel u, ArrayList<Pixel> B, int z, float epsilon) {
         float boundaryWeightsColorsSum = 0;
         float boundaryWeightsSum = 0;
         for (int i=0; i<B.size() && getEuclideanDistance(u,B.get(i)) < K; i++) {
