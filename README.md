@@ -23,7 +23,7 @@ The flow of the code is as follows:
 
 
 ## Assumptions
-* image and image_mask as the same height and width.
+* image and image_mask has the same height and width.
 * RGB to Grayscale according to the [Average Method](https://www.dynamsoft.com/blog/insights/image-processing/image-processing-101-color-space-conversion/).
 * The pixels from the mask will be considered as a hole pixel - if the pixel has grayscale normalized color which is less than 0.5.
 * Every image has only a single hole, which is not close to the borders of the image.
@@ -70,7 +70,7 @@ Tal Hazi <> [talhazi114@gmail.com](mailto:talhazi114@gmail.com)
 
 [image-example]: ./tests/test1.png
 [image-mask-example]: ./tests/test1_mask.png
-[image-filled-example]: ./tests/output.jpg
+[image-filled-example]: ./tests/test1_output.jpg
 [filled-image-map]: ./images/filledImage.png
 [holed-image-map]: ./images/holedImage.png
 [fill-hole-formula]: ./images/fillHoleFormula.png

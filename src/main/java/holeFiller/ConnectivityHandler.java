@@ -16,7 +16,7 @@ public class ConnectivityHandler {
     static void handle4Connect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, Pixel u) {
         int x = u.getX();
         int y = u.getY();
-        handleConnect(pixelsMap, boundary,x-1,x+1, x, x, y, y,y-1,y+1);
+        handleConnect(pixelsMap, boundary,x-1, y,x+1, y, x, y-1 ,x,y+1);
     }
 
     /**
@@ -29,23 +29,23 @@ public class ConnectivityHandler {
     static void handle8Connect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, Pixel u) {
         int x = u.getX();
         int y = u.getY();
-        handleConnect(pixelsMap, boundary,x-1,x+1,x-1,x+1,y-1,y-1,y+1,y+1);
+        handleConnect(pixelsMap, boundary,x-1,y-1,x+1,y-1,x-1,y+1,x+1,y+1);
     }
 
     /**
-     * get the potential boundary pixels by their coordinate, and add them to the boundary list if so (updating boundary)
+     * get the potential boundary pixels by their coordinate, and add them to the boundary list if needed (updating boundary)
      *
      * @param  pixelsMap   which represents the image with the hole
      * @param  boundary   list of the boundary pixels
      * @params 4 pixels coordinate (x,y)
      */
-    private static void handleConnect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, int x1, int x2, int x3, int x4, int y1, int y2, int y3, int y4){
+    private static void handleConnect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4){
         Pixel[] potentialBoundary = new Pixel[]{pixelsMap[x1][y1],
                                                 pixelsMap[x2][y2],
                                                 pixelsMap[x3][y3],
                                                 pixelsMap[x4][y4]};
         for (Pixel pixel : potentialBoundary) {
-            if (!HoleHandler.isHole(pixel) && !boundary.contains(pixel)) {
+            if (!HoleFiller.isHole(pixel) && !boundary.contains(pixel)) {
                 boundary.add(pixel);
             }
         }

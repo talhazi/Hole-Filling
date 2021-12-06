@@ -1,6 +1,7 @@
 package cmdUtil;
 
-import holeFiller.HoleHandler;
+import holeFiller.HoleFiller;
+
 import java.io.IOException;
 
 /**
@@ -15,7 +16,7 @@ public class CmdUtil {
     private static final float epsilonDefault = 0.001f;
     private static final int cTypeDefault = 8;
 
-    static public void main(String[] args) {
+    public static void main(String[] args) {
         try {
             // args parsing
             float epsilon;
@@ -31,8 +32,8 @@ public class CmdUtil {
             String imageMaskPath = args[1];
 
             // main goal function
-            HoleHandler holeHandler = new HoleHandler(imagePath, imageMaskPath, Z, epsilon, connectivityType);
-            holeHandler.run();  // save the fixed image as "output.jpg" in the main folder
+            HoleFiller holeFiller = new HoleFiller(imagePath, imageMaskPath, Z, epsilon, connectivityType);
+            holeFiller.run();  // save the fixed image as "output.jpg" in the main folder
 
         } catch (IllegalArgumentException | IOException e){
             System.out.println(e.getMessage());

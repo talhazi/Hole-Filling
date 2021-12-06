@@ -1,7 +1,7 @@
 package holeFiller.passiveObjects;
 
 /**
- * Pixel holds pixel coordinate and color-value in range [0,1]
+ * Pixel holds pixel's coordinate and color-value in range [0,1]
  */
 public class Pixel {
     private final int x;

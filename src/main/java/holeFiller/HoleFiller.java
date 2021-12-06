@@ -6,17 +6,18 @@ import holeFiller.passiveObjects.Pixel;
 import java.io.IOException;
 
 /**
- * HoleHandler holds the cmdline arguments, validate them and run the process
+ * HoleFiller holds the cmdline arguments, validate them and run the process
  */
-public class HoleHandler {
+public class HoleFiller {
     private final String imagePath;
     private final String imageMaskPath;
     private final int Z;
     private final float epsilon;
     private final int connectivityType;
+    static final float maxMaskHoleVal = 0.5f; // less value then maxMaskHoleVal will be considered as hall pixel
     static final float HOLE = -1f;
 
-    public HoleHandler(String imagePath, String imageMaskPath, int Z, float epsilon, int connectivityType){
+    public HoleFiller(String imagePath, String imageMaskPath, int Z, float epsilon, int connectivityType){
         this.imagePath = imagePath;
         this.imageMaskPath = imageMaskPath;
         this.Z = Z;

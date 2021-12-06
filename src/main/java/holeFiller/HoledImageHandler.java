@@ -11,10 +11,11 @@ public class HoledImageHandler {
     /**
      * initializes 2D map, which represents the image with the hole;
      * the original image values normalized to be in range [0,1] and the mask values to -1float.
+     * The pixels from the mask will be considered as a hole pixel - if the pixel has grayscale normalized color < 0.5.
      *
      * @param  imagePath   the path for the source image
      * @param  imageMaskPath   the path for the mask image
-     * @return  pixelsMap   which represents the image with the hole
+     * @return  pixelsMap   2D array which represents the image with the hole
      */
     public static Pixel[][] getHoledImageMap(String imagePath, String imageMaskPath) {
         BufferedImage image = IOHandler.getBufferedImage(imagePath);
@@ -28,8 +29,8 @@ public class HoledImageHandler {
                 // first check if it's hole, if not update the value to normalized image value
                 Color pixelColor = new Color(imageMask.getRGB(x, y));
                 float value = getNormalGrayscale(pixelColor);
-                if (value < 0.5)
-                    value = HoleHandler.HOLE;
+                if (value < HoleFiller.maxMaskHoleVal)
+                    value = HoleFiller.HOLE;
                 else
                     value = getNormalGrayscale(new Color(image.getRGB(x, y)));
                 pixelsMap[x][y] = new Pixel(x, y, value);
@@ -39,7 +40,8 @@ public class HoledImageHandler {
     }
 
     /**
-     * return the hole pixels of HoledImage
+     * return the hole pixels of HoledImage,
+     * assuming the image has only a single hole
      *
      * @param  pixelsMap   which represents the image with the hole
      * @return  hole   list of the hole pixels
@@ -48,7 +50,7 @@ public class HoledImageHandler {
         ArrayList<Pixel> hole = new ArrayList<>();
         for(Pixel[] row : pixelsMap){
             for(Pixel pixel : row){
-                if (HoleHandler.isHole(pixel)) {
+                if (HoleFiller.isHole(pixel)) {
                     hole.add(pixel);
                 }
             }
@@ -57,7 +59,8 @@ public class HoledImageHandler {
     }
 
     /**
-     * return the boundary pixels of HoledImage, according to his hole and connectivityType
+     * return the boundary pixels of HoledImage, according to his hole and connectivityType,
+     * assuming the single hall is not close to the borders of the image.
      * 4-Connect is contained in 8-Connect, so anyway handle 4-Connect and then handle 8-Connect if needed
      *
      * @param  pixelsMap   which represents the image with the hole

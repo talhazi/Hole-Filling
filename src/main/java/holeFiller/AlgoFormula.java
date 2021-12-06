@@ -10,7 +10,7 @@ public class AlgoFormula {
     private static final float K = 400;
 
     /**
-     * calculate color according to the formula definition
+     * calculate hole pixel color according to the formula definition
      *
      * @param  u   which represents the hole pixel which we want to calculate his new color
      * @param  B   list of the boundary pixels
