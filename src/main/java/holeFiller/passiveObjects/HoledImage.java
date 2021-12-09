@@ -10,18 +10,39 @@ import java.util.ArrayList;
  *  in addition it's holds the hole pixels and the hall's boundary pixels
  */
 public class HoledImage {
-    public static Pixel[][] pixelsMap;
-    public ArrayList<Pixel> hole;
-    public ArrayList<Pixel> boundary;
-    public int width;
-    public int height;
+    private final Pixel[][] pixelsMap;
+    private final ArrayList<Pixel> hole;
+    private final ArrayList<Pixel> boundary;
+    private final int width;
+    private final int height;
 
     public HoledImage(String imagePath, String maskPath, int connectivityType) {
-        pixelsMap = HoledImageHandler.getHoledImageMap(imagePath, maskPath);
-        hole = HoledImageHandler.getHolePixels(pixelsMap);
-        boundary = HoledImageHandler.getBoundaryPixels(pixelsMap, hole, connectivityType);
+        HoledImageHandler holedImageHandler = new HoledImageHandler();
+        pixelsMap = holedImageHandler.getHoledImageMap(imagePath, maskPath);
+        hole = holedImageHandler.getHolePixels(pixelsMap);
+        boundary = holedImageHandler.getBoundaryPixels(pixelsMap, hole, connectivityType);
         width = pixelsMap.length;
         height = pixelsMap[0].length;
+    }
+
+    public Pixel[][] getPixelsMap() {
+        return pixelsMap;
+    }
+
+    public ArrayList<Pixel> getHole() {
+        return hole;
+    }
+
+    public ArrayList<Pixel> getBoundary() {
+        return boundary;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     // print image pixels values as 2D

@@ -14,15 +14,15 @@ public class HoleFiller {
     private final int Z;
     private final float epsilon;
     private final int connectivityType;
-    static final float maxMaskHoleVal = 0.5f; // less value then maxMaskHoleVal will be considered as hall pixel
-    static final float HOLE = -1f;
+    private final IOHandler ioHandler;
 
     public HoleFiller(String imagePath, String imageMaskPath, int Z, float epsilon, int connectivityType){
         this.imagePath = imagePath;
         this.imageMaskPath = imageMaskPath;
         this.Z = Z;
-        this.epsilon = IOHandler.validateEpsilon(epsilon); // shouldn't be 0
-        this.connectivityType = IOHandler.validateConnectivityType(connectivityType); // should be 4 or 8
+        ioHandler = new IOHandler();
+        this.epsilon = ioHandler.validateEpsilon(epsilon); // shouldn't be 0
+        this.connectivityType = ioHandler.validateConnectivityType(connectivityType); // should be 4 or 8
     }
 
     /**
@@ -32,12 +32,8 @@ public class HoleFiller {
         HoledImage holedImage = new HoledImage(imagePath, imageMaskPath, connectivityType);
         fillHole(holedImage);
         String outputName = "output.jpg";
-        IOHandler.createImgFile(holedImage, outputName);
+        ioHandler.createImgFile(holedImage, outputName);
         System.out.println("Program finished, the image has been filled successfully!\n");
-    }
-
-    static boolean isHole(Pixel p) {
-        return p.getValue() == HOLE;
     }
 
     /**
@@ -46,11 +42,12 @@ public class HoleFiller {
      * @param  holedImage   the holed image that should be filled
      */
     private void fillHole(HoledImage holedImage) {
-        for (Pixel u : holedImage.hole) {
-            float newColorValue = AlgoFormula.calcColor(u, holedImage.boundary, Z, epsilon);
+        for (Pixel u : holedImage.getHole()) {
+            AlgoFormula algoFormula = new AlgoFormula();
+            float newColorValue = algoFormula.calcColor(u, holedImage.getBoundary(), Z, epsilon);
             int x = u.getX();
             int y = u.getY();
-            HoledImage.pixelsMap[x][y].setValue(newColorValue);
+            holedImage.getPixelsMap()[x][y].setValue(newColorValue);
         }
     }
 

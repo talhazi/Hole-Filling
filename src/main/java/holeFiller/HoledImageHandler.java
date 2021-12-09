@@ -8,6 +8,12 @@ import java.util.ArrayList;
 
 public class HoledImageHandler {
 
+    final float maxMaskHoleVal = 0.5f; // less value then maxMaskHoleVal will be considered as hall pixel
+    final static float HOLE = -1f;
+
+    public HoledImageHandler() {
+    }
+
     /**
      * initializes 2D map, which represents the image with the hole;
      * the original image values normalized to be in range [0,1] and the mask values to -1float.
@@ -17,9 +23,10 @@ public class HoledImageHandler {
      * @param  imageMaskPath   the path for the mask image
      * @return  pixelsMap   2D array which represents the image with the hole
      */
-    public static Pixel[][] getHoledImageMap(String imagePath, String imageMaskPath) {
-        BufferedImage image = IOHandler.getBufferedImage(imagePath);
-        BufferedImage imageMask = IOHandler.getBufferedImage(imageMaskPath);
+    public Pixel[][] getHoledImageMap(String imagePath, String imageMaskPath) {
+        IOHandler ioHandler = new IOHandler();
+        BufferedImage image = ioHandler.getBufferedImage(imagePath);
+        BufferedImage imageMask = ioHandler.getBufferedImage(imageMaskPath);
         int width = image.getWidth();
         int height = image.getHeight();
         // assuming image and imageMask has the same width and height
@@ -29,8 +36,8 @@ public class HoledImageHandler {
                 // first check if it's hole, if not update the value to normalized image value
                 Color pixelColor = new Color(imageMask.getRGB(x, y));
                 float value = getNormalGrayscale(pixelColor);
-                if (value < HoleFiller.maxMaskHoleVal)
-                    value = HoleFiller.HOLE;
+                if (value < maxMaskHoleVal)
+                    value = HOLE;
                 else
                     value = getNormalGrayscale(new Color(image.getRGB(x, y)));
                 pixelsMap[x][y] = new Pixel(x, y, value);
@@ -46,11 +53,11 @@ public class HoledImageHandler {
      * @param  pixelsMap   which represents the image with the hole
      * @return  hole   list of the hole pixels
      */
-    public static ArrayList<Pixel> getHolePixels(Pixel[][] pixelsMap) {
+    public ArrayList<Pixel> getHolePixels(Pixel[][] pixelsMap) {
         ArrayList<Pixel> hole = new ArrayList<>();
         for(Pixel[] row : pixelsMap){
             for(Pixel pixel : row){
-                if (HoleFiller.isHole(pixel)) {
+                if (isHole(pixel)) {
                     hole.add(pixel);
                 }
             }
@@ -68,15 +75,20 @@ public class HoledImageHandler {
      * @param  connectivityType   4-Connect or 8-Connect, for the boundary
      * @return  boundary   list of the boundary pixels
      */
-    public static ArrayList<Pixel> getBoundaryPixels(Pixel[][] pixelsMap, ArrayList<Pixel> hole, int connectivityType) {
+    public ArrayList<Pixel> getBoundaryPixels(Pixel[][] pixelsMap, ArrayList<Pixel> hole, int connectivityType) {
         ArrayList<Pixel> boundary = new ArrayList<>();
         for (Pixel u : hole) {
-            ConnectivityHandler.handle4Connect(pixelsMap, boundary, u);
+            ConnectivityHandler connectivityHandler = new ConnectivityHandler();
+            connectivityHandler.handle4Connect(pixelsMap, boundary, u);
             if (connectivityType == 8){
-                ConnectivityHandler.handle8Connect(pixelsMap, boundary, u);
+                connectivityHandler.handle8Connect(pixelsMap, boundary, u);
             }
         }
         return boundary;
+    }
+
+    static boolean isHole(Pixel p) {
+        return p.getValue() == HOLE;
     }
 
     /**
@@ -85,7 +97,7 @@ public class HoledImageHandler {
      * @param  c   which represents rgb color
      * @return  normalizedGrayscaleValue in range [0,1]
      */
-    private static float getNormalGrayscale(Color c) {
+    private float getNormalGrayscale(Color c) {
         float average = (float) (c.getRed() + c.getGreen() + c.getBlue()) / 3;
         return average / 255;
     }

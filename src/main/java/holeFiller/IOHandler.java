@@ -11,13 +11,16 @@ import java.util.ArrayList;
 
 public class IOHandler {
 
+    public IOHandler() {
+    }
+
     /**
      * make sure connectivityType is 4 or 8
      *
      * @param  connectivityType   the connectivity type
      * @return  connectivityType   or throwing exception if the connectivity type is not 4 or 8
      */
-    static int validateConnectivityType(int connectivityType) {
+     int validateConnectivityType(int connectivityType) {
         ArrayList<Integer> legalConnectivityType = new ArrayList<>();
         legalConnectivityType.add(4);
         legalConnectivityType.add(8);
@@ -28,14 +31,14 @@ public class IOHandler {
     }
 
     // make sure epsilon != 0
-    static float validateEpsilon(float epsilon) {
+     float validateEpsilon(float epsilon) {
         if (epsilon == 0f) {
             throw new IllegalArgumentException("Epsilon can't be equal to ZERO!");
         }
         return epsilon;
     }
 
-    static BufferedImage getBufferedImage(String imagePath) {
+     BufferedImage getBufferedImage(String imagePath) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(imagePath));
@@ -52,11 +55,11 @@ public class IOHandler {
      * @param  holedImage   the holed image after it has been fixed
      * @param  outputName   the output name for the fixed image
      */
-    static void createImgFile(HoledImage holedImage, String outputName) throws IOException {
-        BufferedImage filledImage = new BufferedImage(holedImage.width, holedImage.height, BufferedImage.TYPE_INT_RGB);
-        for (int i = 0; i < holedImage.width; i++) {
-            for (int j = 0; j < holedImage.height; j++) {
-                float pixelColor = HoledImage.pixelsMap[i][j].getValue();
+     void createImgFile(HoledImage holedImage, String outputName) throws IOException {
+        BufferedImage filledImage = new BufferedImage(holedImage.getWidth(), holedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < holedImage.getWidth(); i++) {
+            for (int j = 0; j < holedImage.getHeight(); j++) {
+                float pixelColor = holedImage.getPixelsMap()[i][j].getValue();
                 Color c = new Color(pixelColor, pixelColor, pixelColor);
                 filledImage.setRGB(i, j, c.getRGB());
             }
