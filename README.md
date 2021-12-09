@@ -40,21 +40,21 @@ PDF answers file for the questions is in the main folder.
 
 
 ## Running The Project
-1. Download the Hole_Filling zip folder.
-2. Extract the Files from the downloaded file.
-3. Open the folder [as IntelliJ IDEA project](https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html).
-4. (Usage) Add 2 or 5 command line arguments in the configuration as follows: <br/>
+1. Clone repo:
+   `git clone https://github.com/talhazi/Hole-Filling.git`
+2. Open the folder [as IntelliJ IDEA project](https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html).
+3. (Usage) Add 2 or 5 command line arguments in the configuration as follows: <br/>
    ```
    required: <image> <image_mask>  optional: <Z> <epsilon> <connectivity_type>
     ```
-5. Examples for command line arguments configuration: <br/>
+4. Examples for command line arguments configuration: <br/>
     ```
     tests/test1.png tests/test1_mask.png 3 0.001 8
     ```
     ```
     tests/test2.png tests/test2_mask.png
     ```
-6. RUN.
+5. RUN.
 
 
 ## Dependencies
