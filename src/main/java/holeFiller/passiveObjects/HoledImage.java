@@ -13,16 +13,12 @@ public class HoledImage {
     private final Pixel[][] pixelsMap;
     private final ArrayList<Pixel> hole;
     private final ArrayList<Pixel> boundary;
-    private final int width;
-    private final int height;
 
     public HoledImage(String imagePath, String maskPath, int connectivityType) {
         HoledImageHandler holedImageHandler = new HoledImageHandler();
         pixelsMap = holedImageHandler.getHoledImageMap(imagePath, maskPath);
         hole = holedImageHandler.getHolePixels(pixelsMap);
         boundary = holedImageHandler.getBoundaryPixels(pixelsMap, hole, connectivityType);
-        width = pixelsMap.length;
-        height = pixelsMap[0].length;
     }
 
     public Pixel[][] getPixelsMap() {
@@ -35,14 +31,6 @@ public class HoledImage {
 
     public ArrayList<Pixel> getBoundary() {
         return boundary;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     // print image pixels values as 2D

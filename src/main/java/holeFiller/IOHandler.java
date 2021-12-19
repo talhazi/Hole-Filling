@@ -56,9 +56,9 @@ public class IOHandler {
      * @param  outputName   the output name for the fixed image
      */
      void createImgFile(HoledImage holedImage, String outputName) throws IOException {
-        BufferedImage filledImage = new BufferedImage(holedImage.getWidth(), holedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        for (int i = 0; i < holedImage.getWidth(); i++) {
-            for (int j = 0; j < holedImage.getHeight(); j++) {
+        BufferedImage filledImage = new BufferedImage(holedImage.getPixelsMap().length, holedImage.getPixelsMap()[0].length, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < holedImage.getPixelsMap().length; i++) {
+            for (int j = 0; j < holedImage.getPixelsMap()[0].length; j++) {
                 float pixelColor = holedImage.getPixelsMap()[i][j].getValue();
                 Color c = new Color(pixelColor, pixelColor, pixelColor);
                 filledImage.setRGB(i, j, c.getRGB());

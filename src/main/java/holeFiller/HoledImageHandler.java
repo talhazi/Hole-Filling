@@ -79,9 +79,9 @@ public class HoledImageHandler {
         ArrayList<Pixel> boundary = new ArrayList<>();
         for (Pixel u : hole) {
             ConnectivityHandler connectivityHandler = new ConnectivityHandler();
-            connectivityHandler.handle4Connect(pixelsMap, boundary, u);
+            connectivityHandler.handleHorizontalVerticalConnect(pixelsMap, boundary, u);
             if (connectivityType == 8){
-                connectivityHandler.handle8Connect(pixelsMap, boundary, u);
+                connectivityHandler.handleDiagonalConnect(pixelsMap, boundary, u);
             }
         }
         return boundary;

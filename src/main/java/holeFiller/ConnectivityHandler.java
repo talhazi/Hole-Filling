@@ -16,7 +16,7 @@ public class ConnectivityHandler {
      * @param  boundary   list of the boundary pixels
      * @param  u   which represents the hole pixel which we want to find "his" boundary
      */
-    void handle4Connect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, Pixel u) {
+    void handleHorizontalVerticalConnect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, Pixel u) {
         int x = u.getX();
         int y = u.getY();
         handleConnect(pixelsMap, boundary,x-1, y,x+1, y, x, y-1 ,x,y+1);
@@ -29,7 +29,7 @@ public class ConnectivityHandler {
      * @param  boundary   list of the boundary pixels
      * @param  u   which represents the hole pixel which we want to find "his" boundary
      */
-    void handle8Connect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, Pixel u) {
+    void handleDiagonalConnect(Pixel[][] pixelsMap, ArrayList<Pixel> boundary, Pixel u) {
         int x = u.getX();
         int y = u.getY();
         handleConnect(pixelsMap, boundary,x-1,y-1,x+1,y-1,x-1,y+1,x+1,y+1);
