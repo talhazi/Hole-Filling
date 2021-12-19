@@ -76,6 +76,9 @@ public class HoledImageHandler {
      * @return  boundary   list of the boundary pixels
      */
     public ArrayList<Pixel> getBoundaryPixels(Pixel[][] pixelsMap, ArrayList<Pixel> hole, int connectivityType) {
+        if (connectivityType != 4 && connectivityType != 8) {   // Not necessary, because that validated in IOHandler
+            throw new IllegalArgumentException("Illegal Connectivity Type Given!");
+        }
         ArrayList<Pixel> boundary = new ArrayList<>();
         for (Pixel u : hole) {
             ConnectivityHandler connectivityHandler = new ConnectivityHandler();

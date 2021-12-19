@@ -45,9 +45,7 @@ public class HoleFiller {
         for (Pixel u : holedImage.getHole()) {
             AlgoFormula algoFormula = new AlgoFormula();
             float newColorValue = algoFormula.calcColor(u, holedImage.getBoundary(), Z, epsilon);
-            int x = u.getX();
-            int y = u.getY();
-            holedImage.getPixelsMap()[x][y].setValue(newColorValue);
+            u.setValue(newColorValue);
         }
     }
 
